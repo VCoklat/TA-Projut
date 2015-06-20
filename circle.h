@@ -1,6 +1,7 @@
 #ifndef Circle_H
 #define Circle_H
 using namespace std;
+#include "shape.h"
 #include <string>
 #include <vector>
 
@@ -17,7 +18,7 @@ class Circle : public Shape {
 		Circle(string r);
 		Circle();
 		~Circle();
-		string ukuran1[100];
+		double ukuran1[100];
 		void printAll();
 		int getSize();
 		int index;

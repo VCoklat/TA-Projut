@@ -1,4 +1,4 @@
-/*#include <string>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <malloc.h>
@@ -22,24 +22,21 @@ Circle::~Circle(){
 void Circle::loadFromFile(char *filename)
 {
 	index=0;
-	ifstream file (filename);
-	//string r;
-	if(file.is_open())
-	{
-		while(!file.eof())
+	int r;
+	//ifstream file (filename);
+	FILE* file = fopen (filename, "r");
+		while(!feof (file))
 		{
-			getline(file,r);
-			ukuran1[index]=r;
+			fscanf (file, "%d", &r); 
+			ukuran1[index]=r*r*PI;
 			index++;
 		}	
 		sort();
-	}	else (cout<<"ERROR: File not found",exit(EXIT_FAILURE),1);
+	fclose (file);    
 }
 void Circle::sort()
 {
-	for (int i=0;i<index;i++)
-		for (int j=0;j<i;j++)
-			std::sort(ukuran1,ukuran1+index);
+	std::sort(ukuran1,ukuran1+index);
 }
 void Circle::printAll()
 {
@@ -56,4 +53,4 @@ void Circle::saveToFile(char *filename)
 		save<<ukuran1[i]<<endl;
 	}
 	save.close();
-}*/
+}

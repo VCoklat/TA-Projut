@@ -12,6 +12,7 @@
 //Constructor
 Circle::Circle(){
 	loadFromFile((char *)"circle.txt");
+	//Luas();
 }
 
 //Destructors
@@ -28,29 +29,38 @@ void Circle::loadFromFile(char *filename)
 		while(!feof (file))
 		{
 			fscanf (file, "%d", &r); 
-			ukuran1[index]=r*r*PI;
+			jari[index]=r;
+			luas[index]=r*r*PI;
 			index++;
 		}	
-		sort();
+	sort(jari,jari+index);
+	sort(luas,luas+index);
 	fclose (file);    
 }
-void Circle::sort()
+/*void Circle::sort(a,a)
 {
-	std::sort(ukuran1,ukuran1+index);
+	std::sort(a,a+index);
+}*/
+void Circle::Luas()
+{	
+	for (int i=0;i<index;i++)
+	{
+		cout<<"radius : "<<jari[i]<<" luas : "<<luas[i]<<endl;
+	}
 }
-void Circle::printAll()
+/*void Circle::printAll()
 {
 	for (int i=0;i<index;i++)
 	{
-		cout<<ukuran1[i]<<endl;
+		cout<<jari[i]<<endl;
 	}
-}
+}*/
 void Circle::saveToFile(char *filename)
 {
 	ofstream save (filename);
 	for (int i=0;i<index;i++)
 	{
-		save<<ukuran1[i]<<endl;
+		save<<jari[i]<<endl;
 	}
 	save.close();
 }

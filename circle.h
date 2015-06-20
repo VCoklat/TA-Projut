@@ -15,14 +15,15 @@ class Circle : public Shape {
 		string r;
 		void loadFromFile(char *filename);
 		void saveToFile(char *filename);
+		void Luas();
 		Circle(string r);
 		Circle();
 		~Circle();
-		double ukuran1[100];
+		double luas[100],jari[100];
 		void printAll();
 		int getSize();
 		int index;
-		void sort();
+		//void sort(a,a);
         Circle (int radius) : radius(radius) {}
 
         virtual int getArea() const {

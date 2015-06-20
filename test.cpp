@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     //Shape shapes;
 	Circle lingkaran;
-	lingkaran.printAll();
+	lingkaran.Luas();
 	/*
     for (int i = 0; i < 10; i++){
         if (i % 2)

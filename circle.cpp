@@ -13,7 +13,6 @@ Circle::~Circle(){
 
 void Circle::loadFromFile(char *filename)
 {
-	index=0;
 	int r;
 	FILE* file = fopen (filename, "r"); //baca file
 		while(!feof (file))
@@ -37,12 +36,15 @@ void Circle::Tambah(double a)
 
 void Circle::Kurang(double a)
 {
-	for (int i=0;i<jariList.size();i++)
+	int i=0;
+	while(i<jariList.size())
 	{
 		if (a==jariList[i])
 		{
 			jariList.erase(jariList.begin()+i);
+			i--;
 		}
+		i++;
 	}
 }
 

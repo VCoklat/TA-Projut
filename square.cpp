@@ -1,17 +1,9 @@
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <malloc.h>
-#include <stdlib.h>
-#include <algorithm>
-#include <iomanip>
-#include <cmath>
-#include <cstring>
 #include "square.h"
 
 //Constructor
 Square::Square(){
 	loadFromFile((char *)"square.txt");
+	//Luas();
 }
 
 //Destructors
@@ -21,37 +13,65 @@ Square::~Square(){
 
 void Square::loadFromFile(char *filename)
 {
-	index=0;
-	ifstream file (filename);
-	string s;
-	if(file.is_open())
-	{
-		while(!file.eof())
+	int s;
+	FILE* file = fopen (filename, "s"); //baca file
+		while(!feof (file))
 		{
-			getline(file,s);
-		//ukuran1.push_back(s));
-			ukuransisi[index]=s;
-			index++;
+			fscanf (file, "%d", &s); 
+			jariList.push_back(s); // memasukkan data ke dalam vektor
 		}	
-	}	else (cout<<"ERROR: File not found",exit(EXIT_FAILURE),1);
+	sorting();
+	fclose (file);    
 }
-void Square::sort()
+
+void Square::sorting()
 {
-	std::sort(ukuransisi,ukuransisi+index);
+	std::sort(sisiList.begin(),sisiList.end());//untuk sorting
 }
-void Square::printAll()
+
+void Square::Tambah(double a)
 {
-	for (int i=0;i<index;i++)
+	sisiList.push_back(a);
+}
+
+void Square::Kurang(double a)
+{
+	int i=0;
+	while(i<sisiList.size())
 	{
-		cout<<ukuransisi[i]<<endl;
+		if (a==sisiList[i])
+		{
+			sisiList.erase(sisiList.begin()+i);
+			i--;
+		}
+		i++;
 	}
 }
+
+void Square::Luas()
+{	
+	for(int i=0;i<sisiList.size();i++)
+	{
+		Asquare.push_back(sisiList[i]*sisiList[i]);
+		cout<<"Sisi : "<<sisiList[i]<<" luas : "<<Asquare[i]<<endl; //output sisi & luas
+	}
+}
+
+void Square::Keliling()
+{	
+	for(int i=0;i<sisiList.size();i++)
+	{
+		Ksquare.push_back(sisiList[i]*4);
+		cout<<"Sisi : "<<sisiList[i]<<" Keliling : "<<Ksquare[i]<<endl;
+	}
+}
+
 void Square::saveToFile(char *filename)
 {
 	ofstream save (filename);
-	for (int i=0;i<index;i++)
+	for (int i=0;i<sisiList.size();i++)
 	{
-		save<<ukuransisi[i]<<endl;
+		save<<sisiList[i]<<endl; //save data
 	}
 	save.close();
 }

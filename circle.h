@@ -4,7 +4,7 @@ using namespace std;
 #include <string>
 #include <vector>
 
-class Circle: public Shape
+class Circle
 {
 	public:
 	string r;
@@ -13,9 +13,10 @@ class Circle: public Shape
 	Circle(string r);
 	Circle();
 	~Circle();
-	vector<int>ukuran;
+	string ukuran1[100];
 	void printAll();
 	int getSize();
+	int index;
 	void sort();
 };
 #endif

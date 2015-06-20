@@ -16,10 +16,11 @@ class Circle : public Shape {
 		void loadFromFile(char *filename);
 		void saveToFile(char *filename);
 		void Luas();
+		void Keliling();
 		Circle(string r);
 		Circle();
 		~Circle();
-		double luas[100],jari[100];
+		double luas[100],jari[100], keliling[100];
 		void printAll();
 		int getSize();
 		int index;

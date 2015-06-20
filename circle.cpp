@@ -31,10 +31,12 @@ void Circle::loadFromFile(char *filename)
 			fscanf (file, "%d", &r); 
 			jari[index]=r;
 			luas[index]=r*r*PI;
+			keliling[index]=2*PI*r;
 			index++;
 		}	
 	sort(jari,jari+index);
 	sort(luas,luas+index);
+	sort(keliling,keliling+index);
 	fclose (file);    
 }
 /*void Circle::sort(a,a)
@@ -46,6 +48,14 @@ void Circle::Luas()
 	for (int i=0;i<index;i++)
 	{
 		cout<<"radius : "<<jari[i]<<" luas : "<<luas[i]<<endl;
+	}
+}
+
+void Circle::Keliling()
+{	
+	for (int i=0;i<index;i++)
+	{
+		cout<<"radius : "<<jari[i]<<" Keliling : "<<keliling[i]<<endl;
 	}
 }
 /*void Circle::printAll()

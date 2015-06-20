@@ -1,12 +1,10 @@
-#include <iostream>
 #include "circle.h"
 #include "shape.h"
-
-using namespace std;
 
 int main() {
     //Shape shapes;
 	Circle lingkaran;
+	lingkaran.Kurang(9);
 	lingkaran.Luas();
 	lingkaran.Keliling();
 	/*

@@ -1,12 +1,3 @@
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <malloc.h>
-#include <stdlib.h>
-#include <algorithm>
-#include <iomanip>
-#include <cmath>
-#include <cstring>
 #include "circle.h"
 
 //Constructor
@@ -24,53 +15,61 @@ void Circle::loadFromFile(char *filename)
 {
 	index=0;
 	int r;
-	//ifstream file (filename);
-	FILE* file = fopen (filename, "r");
+	FILE* file = fopen (filename, "r"); //baca file
 		while(!feof (file))
 		{
 			fscanf (file, "%d", &r); 
-			jari[index]=r;
-			luas[index]=r*r*PI;
-			keliling[index]=2*PI*r;
-			index++;
+			jariList.push_back(r); // memasukkan data ke dalam vektor
 		}	
-	sort(jari,jari+index);
-	sort(luas,luas+index);
-	sort(keliling,keliling+index);
+	sorting();
 	fclose (file);    
 }
-/*void Circle::sort(a,a)
+
+void Circle::sorting()
 {
-	std::sort(a,a+index);
-}*/
+	std::sort(jariList.begin(),jariList.end());//untuk sorting
+}
+
+void Circle::Tambah(double a)
+{
+	jariList.push_back(a);
+}
+
+void Circle::Kurang(double a)
+{
+	for (int i=0;i<jariList.size();i++)
+	{
+		if (a==jariList[i])
+		{
+			jariList.erase(jariList.begin()+i);
+		}
+	}
+}
+
 void Circle::Luas()
 {	
-	for (int i=0;i<index;i++)
+	for(int i=0;i<jariList.size();i++)
 	{
-		cout<<"radius : "<<jari[i]<<" luas : "<<luas[i]<<endl;
+		Lling.push_back(jariList[i]*jariList[i]*PI);
+		cout<<"radius : "<<jariList[i]<<" luas : "<<Lling[i]<<endl; //output radius beserta Luas
 	}
 }
 
 void Circle::Keliling()
 {	
-	for (int i=0;i<index;i++)
+	for(int i=0;i<jariList.size();i++)
 	{
-		cout<<"radius : "<<jari[i]<<" Keliling : "<<keliling[i]<<endl;
+		Kling.push_back(jariList[i]*2*PI);
+		cout<<"radius : "<<jariList[i]<<" Keliling : "<<Kling[i]<<endl;
 	}
 }
-/*void Circle::printAll()
-{
-	for (int i=0;i<index;i++)
-	{
-		cout<<jari[i]<<endl;
-	}
-}*/
+
 void Circle::saveToFile(char *filename)
 {
 	ofstream save (filename);
-	for (int i=0;i<index;i++)
+	for (int i=0;i<jariList.size();i++)
 	{
-		save<<jari[i]<<endl;
+		save<<jariList[i]<<endl; //save data
 	}
 	save.close();
 }

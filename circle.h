@@ -1,9 +1,7 @@
 #ifndef Circle_H
 #define Circle_H
-using namespace std;
+
 #include "shape.h"
-#include <string>
-#include <vector>
 
 
 class Circle : public Shape {
@@ -17,14 +15,15 @@ class Circle : public Shape {
 		void saveToFile(char *filename);
 		void Luas();
 		void Keliling();
+		void Tambah(double a);
+		void Kurang(double a);
 		Circle(string r);
 		Circle();
 		~Circle();
-		double luas[100],jari[100], keliling[100];
 		void printAll();
 		int getSize();
 		int index;
-		//void sort(a,a);
+		void sorting();
         Circle (int radius) : radius(radius) {}
 
         virtual int getArea() const {

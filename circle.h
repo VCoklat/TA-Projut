@@ -13,7 +13,10 @@ class Circle : public Shape
 		void loadFromFile(char *filename);
 		void tampilluas();
 		void tampilkeliling();
-		//void saveToFile(char *filename);
+		void tambah(int a);
+		void hapus(int a);
+		~Circle();
+		void saveToFile(char *filename);
 		Circle(int jarijariBaru);
 		void hitungLuas();
 		void hitungKeliling();

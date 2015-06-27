@@ -5,6 +5,7 @@
 #include <iostream>
 #include <malloc.h>
 #include <stdlib.h>
+#include <fstream>
 #include <algorithm>
 #include <iomanip>
 #include <stdlib.h>

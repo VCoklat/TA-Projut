@@ -15,6 +15,10 @@ Circle::Circle()
 	loadFromFile((char *)"circle.txt");
 }
 
+Circle::~Circle(){
+	saveToFile((char *)"out.txt");
+}
+
 void Circle::loadFromFile(char *filename)
 {
 	int r;
@@ -50,6 +54,33 @@ void Circle::printDetails()
 	cout<<jarijari<<" | "<<luas<<" | "<<keliling<<endl;
 }
 
+void Circle::tambah(int a)
+{
+	if (a>0) shapes.push_back(new Circle(a)); else throw"Input tidak boleh negatif";
+}
+
+void Circle::hapus(int a)
+{
+	bool cek = false;
+	if (a<0) throw"Input tidak boleh negatif";
+	for (int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Circle")
+		{
+			if(((Circle*)shapes[i])->getjarijari() == a)
+			{
+				cek = true;
+				shapes.erase(shapes.begin()+i);
+				cout<<"Circle dengan radius "<<a<<" telah di hapus"<<endl;
+			}
+		}
+	}	
+	if(!cek)
+	{
+		throw"Tidak ada lingkaran dengan jari-jari tersebut";
+	}	
+}
+
 void Circle::tampilluas()
 {
 	int i=0;
@@ -77,4 +108,15 @@ int Circle :: getjarijari()
 	return jarijari;
 }
 
-
+void Circle::saveToFile(char *filename)
+{
+	ofstream save (filename);
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Circle")
+		{
+			save<<((Circle *)shapes[i])->getjarijari()<<endl;
+		}
+	}
+	save.close();
+}

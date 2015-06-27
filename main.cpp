@@ -24,6 +24,7 @@ void kelilingpersegi();
 void luaspersegipanjang();
 void kelilingpersegipanjang();
 
+int input;
 Circle lingkaran;
 
 void header()
@@ -39,7 +40,6 @@ int main()
 	system("cls");
 	loop :
 	header();
-	int input;
 	cout << "MENU UTAMA"<< endl;
 	cout << "1. Tampilkan Bentuk" << endl;
 	cout << "2. Tambah Bentuk" << endl;
@@ -296,10 +296,60 @@ void tampilpersegipanjang()
         }
     }
 }
-void tambahlingkaran(){}
+
+void tambahlingkaran()
+{
+	header();
+	cout<<"Masukkan jari-jari : ";
+	try
+	{
+		cin>>input;
+		if (cin.fail()) 
+		{
+			cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
+			cin.clear ();
+			cin.ignore();
+			tambahlingkaran();
+		} else 
+		{
+			lingkaran.tambah(input);
+			luaslingkaran();
+		}
+	}
+	catch (const char* e)
+	{
+		cerr << e << endl;
+		cout << endl;
+		tambahlingkaran();
+	}
+}
 void tambahpersegi(){}
 void tambahpersegipanjang(){}
-void hapuslingkaran(){}
+
+void hapuslingkaran()
+{
+	try
+	{
+		cout<<"Masukkan radius lingkaran yang akan dihapus: "<<endl;
+		if(!(cin>>input))
+		{
+			cin.clear();
+			cin.ignore();
+			cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
+			hapuslingkaran();
+		} 
+		else 
+		{
+			lingkaran.hapus(input);
+			luaslingkaran();
+		}
+	}
+	catch (const char *e)
+	{
+		cerr << e << endl;
+		hapuslingkaran();
+	}
+}
 void hapuspersegi(){}
 void hapuspersegipanjang(){}
 void luas(){}
@@ -321,283 +371,3 @@ void luaspersegi(){}
 void kelilingpersegi(){}
 void luaspersegipanjang(){}
 void kelilingpersegipanjang(){}
-
-/*
-
-void savedata()
-{
-	ofstream of;
-	of.open("circle.txt");
-	of.close();
-	of.open("square.txt");
-	of.close();
-	of.open("rectangle.txt");
-	of.close();
-	for(i=0;i<shapes.size();i++)
-	{
-		
-		if(shapes[i]->getJenisShape()=="Circle")
-		{
-			of.open("circle.txt", ofstream::out | ofstream::app);
-			of<<((Circle *)shapes[i])->getjarijari()<<endl;
-			of.close();
-		}
-		
-		else if(shapes[i]->getJenisShape()=="Square")
-		{
-			of.open("square.txt", ofstream::out | ofstream::app);
-			of<<((Square*)shapes[i])->getsisi()<<endl;
-			of.close();
-		}
-		
-		else if(shapes[i]->getJenisShape()=="Rectangle")
-		{
-			of.open("rectangle.txt", ofstream::out | ofstream::app);
-			of<<((Rectangle*)shapes[i])->getpanjang()<<"\t"<<((Rectangle*)shapes[i])->getlebar()<<endl;
-			of.close();
-		}
-	}
-}
-
-void tambah_lingkaran(){
-	system("CLS");
-	fflush stdin;
-	try
-	{
-	float radius;
-	cout << "Masukkan Jari-jari:" << endl;
-		if(!(cin >> radius && radius>0)) {
-            cin.clear();
-            cin.ignore();
-            throw "Maaf, input yang anda masukkan salah. Silakan coba kembali." ;
-		   	}
-		else 
-		{
-		shapes.push_back(new Circle(radius));
-		cout << "data berhasil dimasukkan." << endl << endl << "silahkan tekan apa saja untuk kembali."<<endl;
-		fflush stdin;
-		_getch();
-		tambah_bentuk();
-		}
-	}
-	catch (const char* e)
-	{
-		cerr << e << "\n\n";
-		cout << endl;
-		tambah_lingkaran();
-	}
-}
-
-void delete_lingkaran()
-{
-	fflush stdin;
-	try
-	{
-		int radius;
-		cout<<"Masukkan jari-jari yang akan dihapus: "<<endl;
-		if(!(cin>>radius))
-		{
-			cin.clear();
-			cin.ignore();
-			throw "Maaf, input yang Anda masukkan salah. Silakan coba kembali.";
-		}
-		bool cek = false;
-		for (i=0;i<shapes.size();i++)
-		{
-			if(shapes[i]->getJenisShape()=="Circle")
-			{
-				if(((Circle*)shapes[i])->getjarijari() == radius)
-				{
-					cek = true;
-					shapes.erase(shapes.begin()+i);
-					cout<<"Circle dengan jari-jari "<<radius<<" telah di hapus"<<endl;
-				}
-			}
-		}
-			
-		if(!cek)
-		{
-			cout<<"Tidak ada Circle dengan jari-jari "<< radius <<"."<<endl;
-		}
-		else
-		{
-			cout << "data berhasil dihapus." << endl;
-		}
-		cout << "tekan apa saja untuk kembali" << endl;
-		fflush stdin;
-		_getch();
-		
-
-	}
-	catch (const char *e)
-	{
-		cerr << e << "\n\n";
-		cout << endl;
-		delete_lingkaran();
-	}
-}
-
-void tambah_persegi(){
-	system("CLS");
-	fflush stdin;
-	try
-	{
-	float sisi;
-	cout << "Masukkan Sisi:" << endl;
-		if(!(cin >> sisi && sisi>0)) {
-            cin.clear();
-            cin.ignore();
-            throw "Maaf, input yang anda masukkan salah. Silakan coba kembali." ;
-		   	}
-		else 
-		{
-		shapes.push_back(new Square(sisi));
-		cout << "data berhasil dimasukkan." << endl << endl << "silahkan tekan apa saja untuk kembali."<<endl;
-		fflush stdin;
-		_getch();
-		tambah_bentuk();
-		}
-	}
-	catch (const char* e)
-	{
-		cerr << e << "\n\n";
-		cout << endl;
-		tambah_persegi();
-	}
-}
-
-void delete_persegi(){
-	fflush stdin;
-	try
-	{
-		int sisi;
-		cout<<"Masukkan sisi yang akan dihapus: "<<endl;
-		if(!(cin>>sisi))
-		{
-			cin.clear();
-			cin.ignore();
-			throw "Maaf, input yang Anda masukkan salah. Silakan coba kembali.";
-		}
-		bool cek = false;
-		for (i=0;i<shapes.size();i++)
-		{
-			if(shapes[i]->getJenisShape()=="Square")
-			{
-				if(((Square*)shapes[i])->getsisi() == sisi)
-				{
-					cek = true;
-					shapes.erase(shapes.begin()+i);
-					cout<<"Square dengan sisi "<<sisi<<" telah di hapus"<<endl;
-				}
-			}
-		}
-			
-		if(!cek)
-		{
-			cout<<"Tidak ada Square dengan sisi " <<sisi<<endl;
-		}
-		else
-		{
-			cout << "data berhasil dihapus." << endl;
-		}
-			cout << "tekan apa saja untuk kembali" << endl;
-		fflush stdin;
-		_getch();
-	
-	}
-	catch (const char *e)
-	{
-		cerr << e << "\n\n";
-		cout << endl;
-		delete_persegi();
-	}
-}
-
-void tambah_persegi_panjang(){
-	system("CLS");
-	fflush stdin;
-	try
-	{
-		float panjang, lebar;
-		cout << "Masukkan panjang:" << endl;
-		if(!(cin >> panjang && panjang>0)) {
-            cin.clear();
-            cin.ignore();
-            throw "Maaf, input yang anda masukkan salah. Silakan coba kembali." ;
-		   	}
-		cout << "Masukkan lebar:" << endl;	   	
-		if(!(cin >> lebar && lebar>0)) {
-            cin.clear();
-            cin.ignore();
-            throw "Maaf, input yang anda masukkan salah. Silakan coba kembali." ;
-		   	}
-	
-  		shapes.push_back(new Rectangle(panjang,lebar));
-		cout << "data berhasil dimasukkan." << endl << endl << "silahkan tekan apa saja untuk kembali."<<endl;
-		fflush stdin;
-		_getch();
-		tambah_bentuk();
-	}
-	catch (const char* e)
-	{
-		cerr << e << "\n\n";
-		cout << endl;
-		tambah_persegi_panjang();
-	}
-	
-}
-
-void delete_persegi_panjang(){
-	fflush stdin;
-	try
-	{
-		int panjang, lebar;
-		cout<<"Masukkan panjang yang akan di hapus: "<<endl;
-		if(!(cin >> panjang && panjang>0))
-		{
-			cin.clear();
-			cin.ignore();
-			throw "Maaf, input yang Anda masukkan salah. Silakan coba kembali.";
-		}
-		cout << "Masukkan lebar yang akan di hapus:" << endl;	   	
-		if(!(cin >> lebar && lebar>0)) 
-		{
-            cin.clear();
-            cin.ignore();
-            throw "Maaf, input yang anda masukkan salah. Silakan coba kembali." ;
-		}
-		bool cek = false;
-		for (i=0;i<shapes.size();i++)
-		{
-			if(shapes[i]->getJenisShape()=="Rectangle")
-			{
-				if(((Rectangle*)shapes[i])->getpanjang() == panjang)
-				{
-					if(((Rectangle*)shapes[i])->getlebar()== lebar)
-					{
-						cek = true;
-						shapes.erase(shapes.begin()+i);
-						cout<<"Rectangle dengan panjang " << panjang << " dan lebar "<< lebar << " telah di hapus"<<endl;
-					}
-				}
-			}
-		}
-		if(!cek)
-		{
-			cout<<"Tidak ada Rectangle dengan panjang " <<panjang<< " dan lebar " <<lebar<<endl;
-		}
-			else
-		{
-			cout << "data berhasil dihapus." << endl;
-		}
-			cout << "tekan apa saja untuk kembali" << endl;
-		fflush stdin;
-		_getch();
-	}
-	catch (const char *e)
-	{
-		cerr << e << "\n\n";
-		cout << endl;
-		delete_persegi_panjang();
-	}
-}*/

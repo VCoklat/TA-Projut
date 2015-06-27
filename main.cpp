@@ -1,9 +1,7 @@
 #include "shape.h"
-
-vector <Shape *> shapes;
+#include "circle.h"
 
 void header();
-int main();
 void tampilbentuk();
 void tambah();
 void hapus();
@@ -25,6 +23,8 @@ void luaspersegi();
 void kelilingpersegi();
 void luaspersegipanjang();
 void kelilingpersegipanjang();
+
+Circle lingkaran;
 
 void header()
 {
@@ -53,7 +53,7 @@ int main()
         cin.ignore();
 		goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:tampilbentuk(); break;
             case 2:tambah(); break;
@@ -88,7 +88,7 @@ void tampilbentuk()
         cin.ignore();
 		goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:tampilsemua(); break;
             case 2:tampillingkaran(); break;
@@ -105,7 +105,7 @@ void tampilbentuk()
 
 void tambah()
 {
-	int input();
+	int input;
 	system("CLS");
 	loop :
 	header();
@@ -122,7 +122,7 @@ void tambah()
         cin.ignore();
 		goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:tambahlingkaran(); break;
             case 2:tambahpersegi(); break;
@@ -156,7 +156,7 @@ void hapus()
        cin.ignore();
 	goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:hapuslingkaran(); break;
             case 2:hapuspersegi(); break;
@@ -189,7 +189,7 @@ void tampilsemua()
        cin.ignore();
 	goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:luas(); break;
             case 2:keliling(); break;
@@ -204,8 +204,6 @@ void tampilsemua()
 
 void tampillingkaran()
 {
-	system("CLS");
-	loop :
 	int input;
 	header();
 	fflush stdin;
@@ -220,16 +218,16 @@ void tampillingkaran()
        cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
        cin.clear ();
        cin.ignore();
-	goto loop;
+	tampillingkaran();
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:luaslingkaran(); break;
             case 2:kelilinglingkaran(); break;
             case 3:tampilbentuk(); break;
             default : {
             cout<<"Maaf input anda salah, masukkan angka 1/2/3"<<endl;
-			goto loop;
+			tampillingkaran();
             }
         }
     }  
@@ -239,7 +237,7 @@ void tampilpersegi()
 {
 	system("CLS");
 	loop :
-	int input();
+	int input;
 	header();
 	cout << "MENU TAMPILKAN BENTUK PERSEGI" << endl;
 	cout << "1. Urutkan Berdasarkan Luas" << endl;
@@ -254,7 +252,7 @@ void tampilpersegi()
        cin.ignore();
 	goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:luaspersegi(); break;
             case 2:kelilingpersegi(); break;
@@ -286,7 +284,7 @@ void tampilpersegipanjang()
        cin.ignore();
 	goto loop;
     } else {
-        switch(nomor)
+        switch(input)
         {
             case 1:luaspersegipanjang(); break;
             case 2:kelilingpersegipanjang(); break;
@@ -297,6 +295,68 @@ void tampilpersegipanjang()
             }
         }
     }
+}
+void tambahlingkaran(){}
+void tambahpersegi(){}
+void tambahpersegipanjang(){}
+void hapuslingkaran(){}
+void hapuspersegi(){}
+void hapuspersegipanjang(){}
+void luas(){}
+void keliling(){}
+
+void luaslingkaran()
+{
+	system("cls");
+	lingkaran.tampilluas();
+	tampillingkaran();
+}
+void kelilinglingkaran()
+{
+	system("cls");
+	lingkaran.tampilkeliling();
+	tampillingkaran();
+}
+void luaspersegi(){}
+void kelilingpersegi(){}
+void luaspersegipanjang(){}
+void kelilingpersegipanjang(){}
+
+/*
+
+void savedata()
+{
+	ofstream of;
+	of.open("circle.txt");
+	of.close();
+	of.open("square.txt");
+	of.close();
+	of.open("rectangle.txt");
+	of.close();
+	for(i=0;i<shapes.size();i++)
+	{
+		
+		if(shapes[i]->getJenisShape()=="Circle")
+		{
+			of.open("circle.txt", ofstream::out | ofstream::app);
+			of<<((Circle *)shapes[i])->getjarijari()<<endl;
+			of.close();
+		}
+		
+		else if(shapes[i]->getJenisShape()=="Square")
+		{
+			of.open("square.txt", ofstream::out | ofstream::app);
+			of<<((Square*)shapes[i])->getsisi()<<endl;
+			of.close();
+		}
+		
+		else if(shapes[i]->getJenisShape()=="Rectangle")
+		{
+			of.open("rectangle.txt", ofstream::out | ofstream::app);
+			of<<((Rectangle*)shapes[i])->getpanjang()<<"\t"<<((Rectangle*)shapes[i])->getlebar()<<endl;
+			of.close();
+		}
+	}
 }
 
 void tambah_lingkaran(){
@@ -540,4 +600,4 @@ void delete_persegi_panjang(){
 		cout << endl;
 		delete_persegi_panjang();
 	}
-}
+}*/

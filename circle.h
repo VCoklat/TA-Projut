@@ -1,32 +1,25 @@
-#ifndef Circle_H
-#define Circle_H
-
+#ifndef CIRCLE_H
+#define CIRCLE_H
 #include "shape.h"
 
+using namespace std;
 
-class Circle : public Shape {
-    private:
-        int radius;
-        static const double PI = 3.14159265358979323846;
+const float PI = 3.1415926;
 
-    public:
-		void loadFromFile(char *filename);
-		void saveToFile(char *filename);
-		void Luas();
-		void Keliling();
-		void Tambah(double a);
-		void Kurang(double a);
+class Circle : public Shape
+{
+	public:
 		Circle();
-		~Circle();
-		void sorting();
-       Circle (int radius) : radius(radius) {}
-
-        virtual int getArea() const {
-            return PI * radius*radius;
-        };
-		
-        virtual int setRadius(int radius){
-            radius = radius;
-        }
+		void loadFromFile(char *filename);
+		void tampilluas();
+		void tampilkeliling();
+		//void saveToFile(char *filename);
+		Circle(int jarijariBaru);
+		void hitungLuas();
+		void hitungKeliling();
+		void printDetails();
+		int getjarijari();
+	protected:
+		int jarijari;
 };
 #endif

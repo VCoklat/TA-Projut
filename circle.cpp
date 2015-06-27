@@ -1,14 +1,18 @@
+#include<iostream>
 #include "circle.h"
+#include "shape.h"
 
-//Constructor
-Circle::Circle(){
+using namespace std;
+
+//vector <Shape *> shapes;
+
+Circle::Circle()
+{
+	jarijari=0;
+	jenisShape="Circle";
+	hitungLuas();
+	hitungKeliling();
 	loadFromFile((char *)"circle.txt");
-	//Luas();
-}
-
-//Destructors
-Circle::~Circle(){
-	saveToFile((char *)"out.txt");
 }
 
 void Circle::loadFromFile(char *filename)
@@ -18,60 +22,59 @@ void Circle::loadFromFile(char *filename)
 		while(!feof (file))
 		{
 			fscanf (file, "%d", &r); 
-			jariList.push_back(r); // memasukkan data ke dalam vektor
+			shapes.push_back(new Circle(r)); // memasukkan data ke dalam vektor
 		}	
-	sorting();
 	fclose (file);    
 }
 
-void Circle::sorting()
+Circle::Circle(int jarijariBaru)
 {
-	std::sort(jariList.begin(),jariList.end());//untuk sorting
+	jarijari=jarijariBaru;
+	jenisShape="Circle";
+	hitungLuas();
+	hitungKeliling();
+} 
+
+void Circle::hitungLuas()
+{
+	luas=PI*jarijari*jarijari;
 }
 
-void Circle::Tambah(double a)
+void Circle::hitungKeliling()
 {
-	jariList.push_back(a);
+	keliling=2*PI*jarijari;	
 }
 
-void Circle::Kurang(double a)
+void Circle::printDetails()
+{
+	cout<<jarijari<<" | "<<luas<<" | "<<keliling<<endl;
+}
+
+void Circle::tampilluas()
 {
 	int i=0;
-	while(i<jariList.size())
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
+	cout<<"Jari-jari | Luas | Keliling "<<endl;
+	for(i=0;i<shapes.size();i++)
 	{
-		if (a==jariList[i])
-		{
-			jariList.erase(jariList.begin()+i);
-			i--;
-		}
-		i++;
+		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
 	}
 }
 
-void Circle::Luas()
-{	
-	for(int i=0;i<jariList.size();i++)
-	{
-		Lling.push_back(jariList[i]*jariList[i]*PI);
-		cout<<"radius : "<<jariList[i]<<" luas : "<<Lling[i]<<endl; //output radius beserta Luas
-	}
-}
-
-void Circle::Keliling()
-{	
-	for(int i=0;i<jariList.size();i++)
-	{
-		Kling.push_back(jariList[i]*2*PI);
-		cout<<"radius : "<<jariList[i]<<" Keliling : "<<Kling[i]<<endl;
-	}
-}
-
-void Circle::saveToFile(char *filename)
+void Circle::tampilkeliling()
 {
-	ofstream save (filename);
-	for (int i=0;i<jariList.size();i++)
+	int i=0;
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
+	cout<<"Jari-jari | Luas | Keliling "<<endl;
+	for(i=0;i<shapes.size();i++)
 	{
-		save<<jariList[i]<<endl; //save data
+		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
 	}
-	save.close();
 }
+
+int Circle :: getjarijari()
+{
+	return jarijari;
+}
+
+

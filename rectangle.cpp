@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//vector <Shape *> shapes;
+vector <Shape *> shapes;
 
 Rectangle::Rectangle()
 {
@@ -27,8 +27,8 @@ void Rectangle::loadFromFile(char *filename)
 	FILE* file = fopen (filename, "r"); //baca file
 		while(!feof (file))
 		{
-			fscanf (file, "%d", &r); 
-			shapes.push_back(new Rectangle(r)); // memasukkan data ke dalam vektor
+			fscanf (file, "%d", &pa, &le); 
+			shapes.push_back(new Rectangle(pa, le)); // memasukkan data ke dalam vektor
 		}	
 	fclose (file);    
 }

@@ -62,23 +62,26 @@ void Circle::tambah(int a)
 void Circle::hapus(int a)
 {
 	bool cek = false;
-	if (a<0) throw"Input tidak boleh negatif";
-	for (int i=0;i<shapes.size();i++)
+	if (a<=0) throw"Input tidak boleh negatif";
+	else
 	{
-		if(shapes[i]->getJenisShape()=="Circle")
+		for (int i=0;i<shapes.size();i++)
 		{
-			if(((Circle*)shapes[i])->getjarijari() == a)
+			if(shapes[i]->getJenisShape()=="Circle")
 			{
-				cek = true;
-				shapes.erase(shapes.begin()+i);
-				cout<<"Circle dengan radius "<<a<<" telah di hapus"<<endl;
+				if(((Circle*)shapes[i])->getjarijari() == a)
+				{
+					cek = true;
+					shapes.erase(shapes.begin()+i);
+					cout<<"Circle dengan radius "<<a<<" telah di hapus"<<endl;
+				}
 			}
-		}
-	}	
-	if(!cek)
-	{
-		throw"Tidak ada lingkaran dengan jari-jari tersebut";
-	}	
+		}	
+		if(!cek)
+		{
+			throw"Tidak ada lingkaran dengan jari-jari tersebut";
+		}	
+	}
 }
 
 void Circle::tampilluas()

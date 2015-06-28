@@ -1,5 +1,7 @@
 #include "shape.h"
 #include "circle.h"
+#include "square.h"
+#include "rectangle.h"
 
 void header();
 void tampilbentuk();
@@ -26,6 +28,8 @@ void kelilingpersegipanjang();
 
 int input;
 Circle lingkaran;
+Square persegi;
+Rectangle rectangle;
 
 void header()
 {
@@ -323,7 +327,34 @@ void tambahlingkaran()
 		tambahlingkaran();
 	}
 }
-void tambahpersegi(){}
+
+void tambahpersegi()
+{
+	header();
+	cout<<"Masukkan sisi : ";
+	try
+	{
+		cin>>input;
+		if (cin.fail()) 
+		{
+			cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
+			cin.clear ();
+			cin.ignore();
+			tambahpersegi();
+		} else 
+		{
+			persegi.tambah(input);
+			luaspersegi();
+		}
+	}
+	catch (const char* e)
+	{
+		cerr << e << endl;
+		cout << endl;
+		tambahpersegi();
+	}
+}
+
 void tambahpersegipanjang(){}
 
 void hapuslingkaran()
@@ -350,7 +381,32 @@ void hapuslingkaran()
 		hapuslingkaran();
 	}
 }
-void hapuspersegi(){}
+
+void hapuspersegi()
+{
+	try
+	{
+		cout<<"Masukkan sisi persegi yang akan dihapus: "<<endl;
+		if(!(cin>>input))
+		{
+			cin.clear();
+			cin.ignore();
+			cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
+			hapuspersegi();
+		} 
+		else 
+		{
+			persegi.hapus(input);
+			luaspersegi();
+		}
+	}
+	catch (const char *e)
+	{
+		cerr << e << endl;
+		hapuslingkaran();
+	}
+}
+
 void hapuspersegipanjang(){}
 void luas(){}
 void keliling(){}
@@ -361,13 +417,27 @@ void luaslingkaran()
 	lingkaran.tampilluas();
 	tampillingkaran();
 }
+
 void kelilinglingkaran()
 {
 	system("cls");
 	lingkaran.tampilkeliling();
 	tampillingkaran();
 }
-void luaspersegi(){}
-void kelilingpersegi(){}
+
+void luaspersegi()
+{
+	system("cls");
+	persegi.tampilluas();
+	tampilpersegi();
+}
+
+void kelilingpersegi()
+{
+	system("cls");
+	persegi.tampilkeliling();
+	tampilpersegi();
+}
+
 void luaspersegipanjang(){}
 void kelilingpersegipanjang(){}

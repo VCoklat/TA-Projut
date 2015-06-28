@@ -4,11 +4,11 @@
 
 using namespace std;
 
-//vector <Shape *> shapes;
+vector <Shape *> shapes;
 
 Square::Square()
 {
-	sisisquare=0;
+	sisi=0;
 	jenisShape="Square";
 	hitungLuas();
 	hitungKeliling();
@@ -62,23 +62,26 @@ void Square::tambah(int a)
 void Square::hapus(int a)
 {
 	bool cek = false;
-	if (a<0) throw"Input tidak boleh negatif";
-	for (int i=0;i<shapes.size();i++)
+	if (a<=0) throw"Input tidak boleh negatif";
+	else 
 	{
-		if(shapes[i]->getJenisShape()=="Square")
+		for (int i=0;i<shapes.size();i++)
 		{
-			if(((Square*)shapes[i])->getsisi() == a)
+			if(shapes[i]->getJenisShape()=="Square")
 			{
-				cek = true;
-				shapes.erase(shapes.begin()+i);
-				cout<<"Square dengan sisi "<<a<<" telah di hapus"<<endl;
+				if(((Square*)shapes[i])->getsisi() == a)
+				{
+					cek = true;
+					shapes.erase(shapes.begin()+i);
+					cout<<"Square dengan sisi "<<a<<" telah di hapus"<<endl;
+				}
 			}
-		}
-	}	
-	if(!cek)
-	{
-		throw"Tidak ada persegi dengan sisi tersebut.";
-	}	
+		}	
+		if(!cek)
+		{
+			throw"Tidak ada persegi dengan sisi tersebut.";
+		}	
+	}
 }
 
 void Square::tampilluas()

@@ -1,31 +1,26 @@
-#ifndef Square_H
-#define Square_H
-
+#ifndef SQUARE_H
+#define SQUARE_H
 #include "shape.h"
 
+using namespace std;
 
-class Square : public Shape {
-    private:
-        int sisi;
-
-    public:
-		void loadFromFile(char *filename);
-		void saveToFile(char *filename);
-		void Luaskotak();
-		void Kelilingkotak();
-		void Tambah(double a);
-		void Kurang(double a);
+class Square : public Shape
+{
+	public:
 		Square();
+		void loadFromFile(char *filename);
+		void tampilluas();
+		void tampilkeliling();
+		void tambah(int a);
+		void hapus(int a);
 		~Square();
-		void sorting();
-       Square (int sisi) : sisi(sisi) {}
-
-        virtual int getArea() const {
-            return sisi*sisi;
-        };
-		
-        virtual int setSisi(int sisi){
-            sisi = sisi;
-        }
+		void saveToFile(char *filename);
+		Square(int sisiBaru);
+		void hitungLuas();
+		void hitungKeliling();
+		void printDetails();
+		int getsisi();
+	protected:
+		int sisi;
 };
 #endif

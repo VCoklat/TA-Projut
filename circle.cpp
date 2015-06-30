@@ -10,9 +10,9 @@ Circle::Circle()
 {
 	jarijari=0;
 	jenisShape="Circle";
+	loadFromFile((char *)"circle.txt");
 	hitungLuas();
 	hitungKeliling();
-	loadFromFile((char *)"circle.txt");
 }
 
 Circle::~Circle(){

@@ -1,18 +1,17 @@
-#include<iostream>
 #include "square.h"
 #include "shape.h"
 
 using namespace std;
 
-vector <Shape *> shapes;
+//vector <Shape *> shapes;
 
 Square::Square()
 {
 	sisi=0;
 	jenisShape="Square";
+	loadFromFile((char *)"square.txt");
 	hitungLuas();
 	hitungKeliling();
-	loadFromFile((char *)"square.txt");
 }
 
 Square::~Square(){
@@ -21,12 +20,12 @@ Square::~Square(){
 
 void Square::loadFromFile(char *filename)
 {
-	int si; //si = sisi
-	FILE* file = fopen (filename, "si"); //baca file
+	int r; //si = sisi
+	FILE* file = fopen (filename, "r"); //baca file
 		while(!feof (file))
 		{
-			fscanf (file, "%d", &si); 
-			shapes.push_back(new Square(si)); // memasukkan data ke dalam vektor
+			fscanf (file, "%d", &r); 
+			shapes.push_back(new Square(r)); // memasukkan data ke dalam vektor
 		}	
 	fclose (file);    
 }

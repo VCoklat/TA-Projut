@@ -22,12 +22,14 @@ bool Shape::sortByLuas(Shape *a, Shape *b)
 	b->hitungLuas();
 	return a->getLuas()<b->getLuas();
 }
+
 bool Shape::sortByKeliling(Shape *a, Shape *b)
 {
 	a->hitungKeliling();
 	b->hitungKeliling();
 	return a->getKeliling()<b->getKeliling();	
-}/*
+}
+/*
 void Shape::printDetails()
 {
 	cout<<jarijari<<" | "<<luas<<" | "<<keliling<<endl;

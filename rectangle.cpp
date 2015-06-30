@@ -1,10 +1,9 @@
-#include<iostream>
 #include "rectangle.h"
 #include "shape.h"
 
 using namespace std;
 
-vector <Shape *> shapes;
+//vector <Shape *> shapes;
 
 Rectangle::Rectangle()
 {
@@ -16,38 +15,34 @@ Rectangle::Rectangle()
 	loadFromFile((char *)"rectangle.txt");
 }
 
-Rectangle::~Rectangle(){
+Rectangle::~Rectangle()
+{
 	saveToFile((char *)"outrect.txt");
 }
 
 void Rectangle::loadFromFile(char *filename)
 {
-	int pa;
-	int le;
+	int r, panjang, lebar;
 	FILE* file = fopen (filename, "r"); //baca file
 		while(!feof (file))
 		{
-			fscanf (file, "%d", &pa, &le); 
-			shapes.push_back(new Rectangle(pa, le)); // memasukkan data ke dalam vektor
+			fscanf (file, "%d", &r); 
+			panjang = r;
+			fscanf (file, "%d", &r); 
+			lebar = r;
+			shapes.push_back(new Rectangle(panjang,lebar)); // memasukkan data ke dalam vektor
 		}	
 	fclose (file);    
 }
 
-Rectangle::Rectangle(int panjangBaru)
+Rectangle::Rectangle(int panjangBaru, int lebarBaru)
 {
 	panjang=panjangBaru;
+	lebar = lebarBaru;
 	jenisShape="Rectangle";
 	hitungLuas();
 	hitungKeliling();
 } 
-
-Rectangle::Rectangle(int lebarBaru)
-{
-	lebar=lebarBaru;
-	jenisShape="Rectangle";
-	hitungLuas();
-	hitungKeliling();
-}
 
 void Rectangle::hitungLuas()
 {
@@ -61,18 +56,14 @@ void Rectangle::hitungKeliling()
 
 void Rectangle::printDetails()
 {
-	cout<<panjang<<" | "<<lebar<<" | "<<luas<<" | "<<keliling<<endl;
+	cout<<panjang<<" | "<<luas<<" | "<<keliling<<" | "<<lebar<<endl;
 }
 
-void Rectangle::tambah(int a)
+void Rectangle::tambah(int a, int b)
 {
-	if (a>0) shapes.push_back(new Rectangle(a)); else throw"Input tidak boleh negatif";
+	if (a>0 && b>0) shapes.push_back(new Rectangle(a,b)); else throw"Input tidak boleh negatif";
 }
 
-void Rectangle::tambah(int b)
-{
-	if (b>0) shapes.push_back(new Rectangle(b)); else throw"Input tidak boleh negatif";
-}
 
 void Rectangle::hapus(int a, int b)
 {

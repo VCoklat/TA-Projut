@@ -1,6 +1,4 @@
-#include <iostream>
 #include "shape.h"
-#include "circle.h"
 
 using namespace std;
 
@@ -29,20 +27,3 @@ bool Shape::sortByKeliling(Shape *a, Shape *b)
 	b->hitungKeliling();
 	return a->getKeliling()<b->getKeliling();	
 }
-/*
-void Shape::printDetails()
-{
-	cout<<jarijari<<" | "<<luas<<" | "<<keliling<<endl;
-}
-
-void Shape::tampilluas()
-{
-	int i=0;
-	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
-	cout<<"Jari-jari | Luas | Keliling "<<endl;
-	for(i=0;i<shapes.size();i++)
-	{
-		shapes[i]->printDetails();
-	}
-}*/
-

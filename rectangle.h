@@ -13,7 +13,6 @@ class Rectangle : public Shape
 		void tampilkeliling();
 		void tambah(int a, int b);
 		void hapus(int a, int b);
-		~Rectangle();
 		void saveToFile(char *filename);
 		Rectangle(int panjangBaru, int lebarBaru);
 		void hitungLuas();

@@ -15,9 +15,6 @@ using namespace std;
 class Shape
 {
 	public:
-		vector <Shape *> shapes;
-		//void tampilluas();
-		//void printDetails();
 		tampilluas();
 		string jenisShape;
 		string getJenisShape();	

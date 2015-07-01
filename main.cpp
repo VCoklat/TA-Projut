@@ -25,12 +25,14 @@ void luaspersegi();
 void kelilingpersegi();
 void luaspersegipanjang();
 void kelilingpersegipanjang();
+void bukafile(char *filename);
+void savedata();
 
 int input;
 Circle lingkaran;
 Square persegi;
 Rectangle rectangle;
-//vector <Shape *> shapes;
+vector <Shape *> shapes;
 
 void header()
 {
@@ -42,6 +44,39 @@ void header()
 
 int main()
 {
+	int panjang,lebar,r; 
+	FILE* file;
+	//char *filename= (char *)"circle.txt";
+	file = fopen ((char *)"circle.txt", "r"); //baca file
+	while(!feof (file))
+	{
+		fscanf (file, "%d", &r); 
+		shapes.push_back(new Circle(r)); // memasukkan data ke dalam vektor
+	}	
+	fclose (file);  
+	
+	//char *filename= (char *)"square.txt";
+	file = fopen ((char *)"square.txt", "r"); //baca file
+	while(!feof (file))
+	{
+		fscanf (file, "%d", &r); 
+		shapes.push_back(new Square(r)); // memasukkan data ke dalam vektor
+	}	
+	fclose (file); 
+	
+	//char *filename= (char *)"circle.txt";
+	file = fopen ((char *)"circle.txt", "r"); //baca file
+	while(!feof (file))
+	{
+		fscanf (file, "%d", &r); 
+		panjang = r;
+		fscanf (file, "%d", &r); 
+		lebar = r;
+		shapes.push_back(new Rectangle(panjang,lebar)); // memasukkan data ke dalam vektor
+	}	
+	fclose (file);  
+	
+	 
 	system("cls");
 	loop :
 	header();
@@ -64,6 +99,7 @@ int main()
             case 2:tambah(); break;
             case 3:hapus(); break;
             case 4:
+				savedata();
                 exit(EXIT_SUCCESS);
                 break;
             default : {
@@ -315,7 +351,7 @@ void tambahlingkaran()
 			tambahlingkaran();
 		} else 
 		{
-			lingkaran.tambah(input);
+			if (input>0) shapes.push_back(new Circle(input)); else throw"Input tidak boleh negatif";
 			luaslingkaran();
 		}
 	}
@@ -342,7 +378,7 @@ void tambahpersegi()
 			tambahpersegi();
 		} else 
 		{
-			persegi.tambah(input);
+			if (input>0) shapes.push_back(new Square(input)); else throw"Input tidak boleh negatif";
 			luaspersegi();
 		}
 	}
@@ -381,7 +417,7 @@ void tambahpersegipanjang()
 				tambahpersegipanjang();
 			} else 
 			{
-				rectangle.tambah(panjang,lebar);
+				if (panjang>0 && lebar>0) shapes.push_back(new Rectangle(panjang,lebar)); else throw"Input tidak boleh negatif";
 				luaspersegipanjang();					
 			}
 		}
@@ -408,7 +444,27 @@ void hapuslingkaran()
 		} 
 		else 
 		{
-			lingkaran.hapus(input);
+			bool cek = false;
+			if (input<=0) throw"Input tidak boleh negatif";
+			else
+			{
+				for (int i=0;i<shapes.size();i++)
+				{
+					if(shapes[i]->getJenisShape()=="Circle")
+					{
+						if(((Circle*)shapes[i])->getjarijari() == input)
+						{
+							cek = true;
+							shapes.erase(shapes.begin()+i);
+							cout<<"Circle dengan radius "<<input<<" telah di hapus"<<endl;
+						}
+					}
+				}	
+				if(!cek)
+				{
+					throw"Tidak ada lingkaran dengan jari-jari tersebut";
+				}	
+			}
 			luaslingkaran();
 		}
 	}
@@ -433,7 +489,27 @@ void hapuspersegi()
 		} 
 		else 
 		{
-			persegi.hapus(input);
+			bool cek = false;
+			if (input<=0) throw"Input tidak boleh negatif";
+			else
+			{
+				for (int i=0;i<shapes.size();i++)
+				{
+					if(shapes[i]->getJenisShape()=="Square")
+					{
+						if(((Square*)shapes[i])->getsisi() == input)
+						{
+							cek = true;
+							shapes.erase(shapes.begin()+i);
+							cout<<"Persegi dengan sisi "<<input<<" telah di hapus"<<endl;
+						}
+					}
+				}	
+				if(!cek)
+				{
+					throw"Tidak ada lingkaran dengan jari-jari tersebut";
+				}	
+			}
 			luaspersegi();
 		}
 	}
@@ -468,7 +544,29 @@ void hapuspersegipanjang()
 				hapuspersegipanjang();
 			} else
 			{
-				rectangle.hapus(panjang,lebar);
+				bool cek = false;
+				if (panjang<0) throw"Input tidak boleh negatif";
+				if (lebar<0) throw"Input tidak boleh negatif";
+				for (int i=0;i<shapes.size();i++)
+				{
+					if(shapes[i]->getJenisShape()=="Rectangle")
+					{
+						if(((Rectangle*)shapes[i])->getpanjang() == panjang)
+						{
+							cek = true;
+							if(((Rectangle*)shapes[i])->getlebar() == lebar)
+							{
+								cek = true;
+								shapes.erase(shapes.begin()+i);
+								cout<<"Rectangle dengan panjang "<<panjang<<" ,dan lebar "<<lebar<<" telah di hapus"<<endl;
+							}
+						}
+					}
+				}	
+				if(!cek)
+				{
+					throw"Tidak ada persegi panjang dengan panjang atau lebar tersebut";
+				}	
 				luaspersegipanjang();
 			}	
 		}
@@ -482,54 +580,127 @@ void hapuspersegipanjang()
 
 void luas()
 {
-	cout <<"a"<<endl;
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
+	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
-		cout <<"a"<<endl;
-		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
+		shapes[i]->printDetails();
 	}
 }
 
-void keliling(){}
+void keliling()
+{
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
+	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		shapes[i]->printDetails();
+	}
+}
 
 void luaslingkaran()
 {
 	system("cls");
-	lingkaran.tampilluas();
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
+	cout<<setw(10)<<"Radius |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling |"<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
+	}
 	tampillingkaran();
 }
 
 void kelilinglingkaran()
 {
 	system("cls");
-	lingkaran.tampilkeliling();
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
+	cout<<"Jari-jari | Luas | Keliling "<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
+	}
 	tampillingkaran();
 }
 
 void luaspersegi()
 {
 	system("cls");
-	persegi.tampilluas();
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
+	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling |"<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Square") shapes[i]->printDetails();
+	}
 	tampilpersegi();
 }
 
 void kelilingpersegi()
 {
 	system("cls");
-	persegi.tampilkeliling();
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
+	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Square") shapes[i]->printDetails();
+	}
 	tampilpersegi();
 }
 
 void luaspersegipanjang()
 {
 	system("cls");
-	rectangle.tampilluas();
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
+	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Rectangle") shapes[i]->printDetails();
+	}
 	tampilpersegipanjang();
 }
 
 void kelilingpersegipanjang()
 {
 	system("cls");
-	rectangle.tampilkeliling();
+	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
+	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	for(int i=0;i<shapes.size();i++)
+	{
+		if(shapes[i]->getJenisShape()=="Rectangle") shapes[i]->printDetails();
+	}
 	tampilpersegipanjang();
+}
+
+void savedata()
+{
+	ofstream of;
+	of.open("circle.txt");
+	of.close();
+	of.open("square.txt");
+	of.close();
+	of.open("rectangle.txt");
+	of.close();
+	for(int i=0;i<shapes.size();i++)
+	{
+		
+		if(shapes[i]->getJenisShape()=="Circle")
+		{
+			of.open("circle.txt", ofstream::out | ofstream::app);
+			of<<((Circle *)shapes[i])->getjarijari()<<endl;
+			of.close();
+		}
+		
+		else if(shapes[i]->getJenisShape()=="Square")
+		{
+			of.open("square.txt", ofstream::out | ofstream::app);
+			of<<((Square*)shapes[i])->getsisi()<<endl;
+			of.close();
+		}
+		
+		else if(shapes[i]->getJenisShape()=="Rectangle")
+		{
+			of.open("rectangle.txt", ofstream::out | ofstream::app);
+			of<<((Rectangle*)shapes[i])->getpanjang()<<"\t"<<((Rectangle*)shapes[i])->getlebar()<<endl;
+			of.close();
+		}
+	}
 }

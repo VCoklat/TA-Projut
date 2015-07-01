@@ -13,7 +13,6 @@ class Square : public Shape
 		void tampilkeliling();
 		void tambah(int a);
 		void hapus(int a);
-		~Square();
 		void saveToFile(char *filename);
 		Square(int sisiBaru);
 		void hitungLuas();

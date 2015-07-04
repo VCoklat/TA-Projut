@@ -15,7 +15,7 @@ using namespace std;
 class Shape
 {
 	public:
-		tampilluas();
+		//tampilluas();
 		string jenisShape;
 		string getJenisShape();	
 		float getLuas();

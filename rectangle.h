@@ -8,12 +8,12 @@ class Rectangle : public Shape
 {
 	public:
 		Rectangle();
-		void loadFromFile(char *filename);
-		void tampilluas();
-		void tampilkeliling();
-		void tambah(int a, int b);
-		void hapus(int a, int b);
-		void saveToFile(char *filename);
+		//void loadFromFile(char *filename);
+		//void tampilluas();
+		//void tampilkeliling();
+		//void tambah(int a, int b);
+		//void hapus(int a, int b);
+		//void saveToFile(char *filename);
 		Rectangle(int panjangBaru, int lebarBaru);
 		void hitungLuas();
 		void hitungKeliling();

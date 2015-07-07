@@ -31,7 +31,7 @@ void Circle::hitungKeliling()
 
 void Circle::printDetails()
 {
-	cout<<setw(8)<<jarijari<<" | "<<setw(6)<<luas<<" | "<<setw(8)<<keliling<<" | "<<endl;
+	cout<<setw(10)<<jenisShape<<" | "<<setw(10)<<jarijari<<" | "<<setw(10)<<luas<<" | "<<setw(10)<<keliling<<" | "<<endl;
 }
 
 int Circle :: getjarijari()

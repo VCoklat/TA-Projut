@@ -46,26 +46,23 @@ int main()
 {
 	int panjang,lebar,r; 
 	FILE* file;
-	//char *filename= (char *)"circle.txt";
 	file = fopen ((char *)"circle.txt", "r"); //baca file
 	while(!feof (file))
 	{
 		fscanf (file, "%d", &r); 
 		shapes.push_back(new Circle(r)); // memasukkan data ke dalam vektor
 	}	
-	fclose (file);  
+	fclose(file);  
 	
-	//char *filename= (char *)"square.txt";
 	file = fopen ((char *)"square.txt", "r"); //baca file
 	while(!feof (file))
 	{
 		fscanf (file, "%d", &r); 
 		shapes.push_back(new Square(r)); // memasukkan data ke dalam vektor
 	}	
-	fclose (file); 
+	fclose(file); 
 	
-	//char *filename= (char *)"circle.txt";
-	file = fopen ((char *)"circle.txt", "r"); //baca file
+	file = fopen ((char *)"rectangle.txt", "r"); //baca file
 	while(!feof (file))
 	{
 		fscanf (file, "%d", &r); 
@@ -74,7 +71,7 @@ int main()
 		lebar = r;
 		shapes.push_back(new Rectangle(panjang,lebar)); // memasukkan data ke dalam vektor
 	}	
-	fclose (file);  
+	fclose(file);  
 	
 	 
 	system("cls");
@@ -111,7 +108,6 @@ int main()
 
 void tampilbentuk()
 {
-	system("cls");
 	loop :
 	header();
 	int input;
@@ -581,28 +577,33 @@ void hapuspersegipanjang()
 void luas()
 {
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
-	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Sisi/radius|"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<setw(10)<<"Lebar "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		shapes[i]->printDetails();
 	}
+	tampilbentuk();
 }
 
 void keliling()
 {
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
-	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Sisi/radius|"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<setw(10)<<"Lebar "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		shapes[i]->printDetails();
 	}
+	tampilbentuk();
 }
 
 void luaslingkaran()
 {
 	system("cls");
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
-	cout<<setw(10)<<"Radius |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling |"<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Radius |"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
@@ -614,7 +615,8 @@ void kelilinglingkaran()
 {
 	system("cls");
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
-	cout<<"Jari-jari | Luas | Keliling "<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Radius |"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		if(shapes[i]->getJenisShape()=="Circle") shapes[i]->printDetails();
@@ -626,7 +628,8 @@ void luaspersegi()
 {
 	system("cls");
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
-	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling |"<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Sisi |"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		if(shapes[i]->getJenisShape()=="Square") shapes[i]->printDetails();
@@ -638,7 +641,8 @@ void kelilingpersegi()
 {
 	system("cls");
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
-	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Sisi |"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		if(shapes[i]->getJenisShape()=="Square") shapes[i]->printDetails();
@@ -650,7 +654,8 @@ void luaspersegipanjang()
 {
 	system("cls");
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByLuas);
-	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Panjang |"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<setw(10)<<"Lebar "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		if(shapes[i]->getJenisShape()=="Rectangle") shapes[i]->printDetails();
@@ -662,7 +667,8 @@ void kelilingpersegipanjang()
 {
 	system("cls");
 	sort(shapes.begin(),shapes.begin()+shapes.size(),Shape::sortByKeliling);
-	cout<<setw(10)<<"Sisi |"<<setw(10)<<" Luas | "<<setw(10)<<"Keliling "<<setw(10)<<"Lebar "<<endl;
+	cout<<right;
+	cout<<setw(13)<<"Jenis | "<<setw(12)<<"Panjang |"<<setw(14)<<"Luas | "<<setw(13)<<"Keliling | "<<setw(10)<<"Lebar "<<endl;
 	for(int i=0;i<shapes.size();i++)
 	{
 		if(shapes[i]->getJenisShape()=="Rectangle") shapes[i]->printDetails();
@@ -673,32 +679,32 @@ void kelilingpersegipanjang()
 void savedata()
 {
 	ofstream of;
-	of.open("circle.txt");
-	of.close();
-	of.open("square.txt");
-	of.close();
-	of.open("rectangle.txt");
-	of.close();
+	/*ofstream.open("circle.txt");
+	//of.close();
+	ofstream.open("square.txt");
+	//of.close();
+	ofstream.open("rectangle.txt");
+	//of.close();*/
 	for(int i=0;i<shapes.size();i++)
 	{
 		
 		if(shapes[i]->getJenisShape()=="Circle")
 		{
-			of.open("circle.txt", ofstream::out | ofstream::app);
+			of.open("circle.txt", ofstream::app);
 			of<<((Circle *)shapes[i])->getjarijari()<<endl;
 			of.close();
 		}
 		
 		else if(shapes[i]->getJenisShape()=="Square")
 		{
-			of.open("square.txt", ofstream::out | ofstream::app);
+			of.open("square.txt", ofstream::app);
 			of<<((Square*)shapes[i])->getsisi()<<endl;
 			of.close();
 		}
 		
 		else if(shapes[i]->getJenisShape()=="Rectangle")
 		{
-			of.open("rectangle.txt", ofstream::out | ofstream::app);
+			of.open("rectangle.txt", ofstream::app);
 			of<<((Rectangle*)shapes[i])->getpanjang()<<"\t"<<((Rectangle*)shapes[i])->getlebar()<<endl;
 			of.close();
 		}

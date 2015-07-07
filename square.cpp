@@ -30,7 +30,7 @@ void Square::hitungKeliling()
 
 void Square::printDetails()
 {
-	cout<<setw(8)<<sisi<<" | "<<setw(6)<<luas<<" | "<<setw(8)<<keliling<<" | "<<endl;
+	cout<<setw(10)<<jenisShape<<" | "<<setw(10)<<sisi<<" | "<<setw(10)<<luas<<" | "<<setw(10)<<keliling<<" | "<<endl;
 }
 
 int Square :: getsisi()

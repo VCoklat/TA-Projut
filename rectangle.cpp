@@ -32,7 +32,7 @@ void Rectangle::hitungKeliling()
 
 void Rectangle::printDetails()
 {
-	cout<<setw(8)<<panjang<<" | "<<setw(6)<<luas<<" | "<<setw(8)<<keliling<<" | "<<setw(8)<<lebar<<endl;
+	cout<<setw(10)<<jenisShape<<" | "<<setw(10)<<panjang<<" | "<<setw(10)<<luas<<" | "<<setw(10)<<keliling<<" | "<<setw(10)<<lebar<<endl;
 }
 
 int Rectangle :: getpanjang()
